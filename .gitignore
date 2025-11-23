@@ -1,0 +1,11 @@
+node_modules/
+apps/**/node_modules/
+.pnpm-store/
+dist/
+build/
+apps/**/dist/
+apps/**/build/
+*.log
+.DS_Store
+.env
+.env.*

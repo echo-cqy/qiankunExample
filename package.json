@@ -1,0 +1,13 @@
+{
+  "name": "qiankun-main-app",
+  "private": true,
+  "scripts": {
+    "dev": "vite"
+  },
+  "dependencies": {
+    "qiankun": "^2.10.16"
+  },
+  "devDependencies": { 
+    "vite": "^5.4.0"
+  }
+}
