@@ -2,7 +2,7 @@ import { registerMicroApps, start } from 'qiankun';
 
 const state = {
   theme: 'light',
-  roles: ['guest'],
+  roles: JSON.parse(localStorage.getItem('qiankun_roles')) || ['guest'],
 };
 
 const permissionMap = {
@@ -15,12 +15,38 @@ function canAccess(path) {
   return all.has(path);
 }
 
+function renderUserControls() {
+  const container = document.getElementById('user-controls');
+  if (!container) return;
+  const isAdmin = state.roles.includes('admin');
+  
+  container.innerHTML = `
+    <span style="font-size: 14px; margin-right: 8px; color: #fff;">
+      当前: ${isAdmin ? '管理员' : '访客'}
+    </span>
+    <button id="login-btn" style="padding: 4px 12px; font-size: 12px; cursor: pointer;">
+      ${isAdmin ? '退出' : '登录'}
+    </button>
+  `;
+  
+  document.getElementById('login-btn').onclick = () => {
+    if (isAdmin) {
+      state.roles = ['guest'];
+    } else {
+      state.roles = ['admin'];
+    }
+    localStorage.setItem('qiankun_roles', JSON.stringify(state.roles));
+    location.reload();
+  };
+}
+
 function setActive(path) {
   const buttons = [...document.querySelectorAll('nav button[data-path]')];
   buttons.forEach(b => b.classList.toggle('active', b.dataset.path === path));
 }
 
 function setupNav() {
+  renderUserControls();
   const nav = document.querySelector('nav');
   nav.addEventListener('click', (e) => {
     const btn = e.target.closest('button[data-path]');

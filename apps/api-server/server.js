@@ -1,16 +1,34 @@
 const http = require('http');
 const url = require('url');
+const Mock = require('mockjs');
 
 const PORT = process.env.PORT ? Number(process.env.PORT) : 4000;
 
-const tasks = [
-  { id: 'T-1001', title: '请假申请', status: 'pending' },
-  { id: 'T-1002', title: '报销审批', status: 'approved' },
-  { id: 'T-1003', title: '采购审批', status: 'pending' },
-];
+// Generate mock data
+const tasksData = Mock.mock({
+  'list|10-20': [{
+    'id|+1': 1001,
+    'title': '@ctitle(4, 8)',
+    'status|1': ['pending', 'approved', 'rejected'],
+    'createTime': '@datetime'
+  }]
+});
 
-const metrics = { totalTasks: 128, approvedRate: 0.76, avgHandleHours: 12.4 };
-const trends = Array.from({ length: 7 }).map((_, i) => ({ x: `Day ${i + 1}`, y: Math.floor(20 + Math.random() * 60) }));
+const tasks = tasksData.list.map(t => ({
+  ...t,
+  id: `T-${t.id}`
+}));
+
+const metrics = {
+  totalTasks: Mock.Random.integer(100, 500),
+  approvedRate: parseFloat(Mock.Random.float(0.5, 0.9, 1, 2).toFixed(2)),
+  avgHandleHours: parseFloat(Mock.Random.float(5, 24, 1, 1).toFixed(1))
+};
+
+const trends = Array.from({ length: 7 }).map((_, i) => ({
+  x: `Day ${i + 1}`,
+  y: Mock.Random.integer(20, 80)
+}));
 
 function sendJSON(res, statusCode, body) {
   res.statusCode = statusCode;

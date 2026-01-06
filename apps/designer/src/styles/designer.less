@@ -1,0 +1,54 @@
+.designer-layout {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+
+  .designer-content {
+    flex: 1;
+    position: relative;
+    background-color: #f0f2f5;
+  }
+
+  .designer-sidebar {
+    width: 300px;
+    background: #fff;
+    border-left: 1px solid #e8e8e8;
+    display: flex;
+    flex-direction: column;
+
+    .component-list {
+      padding: 16px;
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    .properties {
+      flex: 1;
+      padding: 16px;
+      overflow-y: auto;
+    }
+  }
+
+  .designer-node {
+    position: absolute;
+    width: 100px;
+    height: 40px;
+    background: #fff;
+    border: 1px solid #1890ff;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    z-index: 1;
+
+    &.selected {
+      box-shadow: 0 0 0 2px #1890ff;
+    }
+
+    &.dragging {
+      opacity: 0.8;
+      z-index: 10;
+    }
+  }
+}

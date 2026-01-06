@@ -2,7 +2,8 @@
   "name": "qiankun-main-app",
   "private": true,
   "scripts": {
-    "dev": "vite"
+    "dev": "vite",
+    "start": "node scripts/start.js"
   },
   "dependencies": {
     "qiankun": "^2.10.16"
