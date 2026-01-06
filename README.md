@@ -2,6 +2,8 @@
 
 一个基于 qiankun 的微前端 Monorepo 示例，包含主应用与三个子应用（审批中心、流程设计器、数据看板），以及本地示例后端。演示主应用统一管理路由、权限与主题配置，子应用独立开发/部署与跨项目组件、工具复用。
 
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/echo-cqy/qiankunExample)
+
 ## 特性
 
 - 微前端架构：主应用聚合多个子应用，按路由懒加载与权限管控
