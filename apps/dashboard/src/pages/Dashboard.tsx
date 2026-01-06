@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { getMetrics, getTrends, type Metrics, type Point } from '../api/dashboard';
+import { Button } from '@project/ui';
+import { useToggle } from '@project/hooks';
 
 export default function Dashboard() {
   const [metrics, setMetrics] = useState<Metrics | null>(null);
   const [trends, setTrends] = useState<Point[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showTrends, toggleTrends] = useToggle(true);
 
   useEffect(() => {
     setLoading(true);
@@ -34,18 +37,26 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <h3>近7日审批趋势</h3>
-      <div style={{ border: '1px solid #eee', borderRadius: 8, padding: 12 }}>
-        <ul style={{ margin: 0, paddingLeft: 18 }}>
-          {trends.map(p => (
-            <li key={p.x}>
-              <span style={{ display: 'inline-block', width: 100 }}>{p.x}</span>
-              <span style={{ fontWeight: 600 }}>{p.y}</span>
-            </li>
-          ))}
-          {trends.length === 0 && (loading ? <li>加载中...</li> : <li>暂无数据</li>)}
-        </ul>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 24, marginBottom: 16 }}>
+        <h3>近7日审批趋势</h3>
+        <Button onClick={toggleTrends} variant="primary">
+          {showTrends ? '隐藏趋势' : '显示趋势'}
+        </Button>
       </div>
+
+      {showTrends && (
+        <div style={{ border: '1px solid #eee', borderRadius: 8, padding: 12 }}>
+          <ul style={{ margin: 0, paddingLeft: 18 }}>
+            {trends.map(p => (
+              <li key={p.x}>
+                <span style={{ display: 'inline-block', width: 100 }}>{p.x}</span>
+                <span style={{ fontWeight: 600 }}>{p.y}</span>
+              </li>
+            ))}
+            {trends.length === 0 && (loading ? <li>加载中...</li> : <li>暂无数据</li>)}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }

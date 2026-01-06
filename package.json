@@ -3,12 +3,28 @@
   "private": true,
   "scripts": {
     "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "start": "node scripts/start.js"
   },
   "dependencies": {
-    "qiankun": "^2.10.16"
+    "@ant-design/icons": "^6.1.0",
+    "components": "workspace:*",
+    "@project/hooks": "workspace:*",
+    "@project/ui": "workspace:*",
+    "@platform/request-core": "workspace:*",
+    "antd": "^5.16.1",
+    "qiankun": "^2.10.16",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.2",
+    "zustand": "^4.5.2"
   },
-  "devDependencies": { 
+  "devDependencies": {
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.23",
+    "@vitejs/plugin-react": "^4.2.0",
+    "typescript": "^5.3.3",
     "vite": "^5.4.0"
   }
 }

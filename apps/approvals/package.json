@@ -13,9 +13,10 @@
     "react-router-dom": "^6.22.2",
     "antd": "^5.16.1",
     "zustand": "^4.5.2",
-    "utils": "workspace:*",
     "components": "workspace:*",
-    "@platform/request-core": "workspace:*"
+    "@platform/request-core": "workspace:*",
+    "@project/ui": "workspace:*",
+    "@project/hooks": "workspace:*"
   },
   "devDependencies": {
     "vite": "^5.4.0",

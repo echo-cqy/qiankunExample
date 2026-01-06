@@ -13,11 +13,16 @@ const routes = [
   { path: '/flow/:id', element: <Flow /> },
 ];
 
+let root: ReactDOM.Root | null = null;
+
 function render(props?: { container?: HTMLElement }) {
-  const basename = qiankunWindow.__POWERED_BY_QIANKUN__ ? '/approvals' : '/';
+  const basename = qiankunWindow.__POWERED_BY_QIANKUN__ ? '/flow' : '/';
   const router = createBrowserRouter(routes, { basename });
   const rootEl = props?.container ? props.container.querySelector('#root') : document.getElementById('root');
-  const root = ReactDOM.createRoot(rootEl!);
+  
+  if (!rootEl) return;
+
+  root = ReactDOM.createRoot(rootEl);
   root.render(
     <ConfigProvider>
       <RouterProvider router={router} />
@@ -27,15 +32,15 @@ function render(props?: { container?: HTMLElement }) {
 
 renderWithQiankun({
   mount(props) {
-    render(props as any);
+    render(props);
   },
   bootstrap() {
     // noop
   },
   unmount(props) {
-    const rootEl = props.container ? props.container.querySelector('#root') : document.getElementById('root');
-    if (rootEl) {
-      (rootEl as any).innerHTML = '';
+    if (root) {
+      root.unmount();
+      root = null;
     }
   },
 });
